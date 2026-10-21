@@ -1,0 +1,38 @@
+/* Motion stays in the existing single lime accent. All content is visible without JS. */
+.reading-progress{position:fixed;top:0;right:0;height:2px;width:100%;transform:scaleX(var(--read-progress,0));transform-origin:right;background:var(--acid);z-index:100;pointer-events:none;box-shadow:0 0 12px rgba(198,255,58,.35)}
+.motion-toggle{display:inline-flex;align-items:center;justify-content:center;gap:10px;border:1px solid var(--line);border-radius:3px;background:none;color:var(--muted);padding:7px 10px;font-size:10px;min-height:36px}
+.motion-toggle span{color:var(--acid);font-family:var(--latin);font-size:11px}.motion-toggle:hover{border-color:var(--acid);color:var(--ink)}
+.network-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+.orbit{--start-angle:-33deg}.orbit-two{--start-angle:33deg}.orbit-three{--start-angle:90deg}
+.motion-enabled .orbit{animation:network-orbit 42s linear infinite}.motion-enabled .orbit-two{animation-duration:57s;animation-direction:reverse}.motion-enabled .orbit-three{animation-duration:71s}
+.motion-enabled .core{animation:core-breathe 6s ease-in-out infinite;translate:calc(var(--pointer-x,0)*10px) calc(var(--pointer-y,0)*10px)}
+.motion-enabled .art-label{translate:calc(var(--pointer-x,0)*-8px) calc(var(--pointer-y,0)*-8px);transition:translate .3s ease-out}
+.motion-enabled .hero h1>span{text-shadow:0 0 45px rgba(198,255,58,.1)}
+.motion-enabled .hero-bottom>a>span{animation:scroll-nudge 2.6s ease-in-out infinite}
+.motion-enabled .brand-symbol{transition:rotate .65s cubic-bezier(.2,.7,.2,1)}.motion-enabled .wordmark:hover .brand-symbol{rotate:90deg}
+.ticker{direction:ltr;justify-content:start;max-width:100%;contain:paint}.ticker-track{display:flex;align-items:center;width:max-content;flex-shrink:0;gap:40px}.ticker-group{display:flex;align-items:center;gap:40px;flex-shrink:0;direction:rtl}.ticker-group>b{font-family:var(--latin);color:var(--acid);font-size:20px;font-weight:400}
+.motion-enabled .ticker-track{animation:knowledge-stream 42s linear infinite}.ticker:hover .ticker-track,.ticker:focus-within .ticker-track{animation-play-state:paused}
+.reveal{transition:opacity .7s ease,translate .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--reveal-delay,0ms)}
+.motion-enabled .reveal:not(.is-visible){opacity:0;translate:0 26px}
+.motion-enabled .reveal.is-visible{opacity:1;translate:0 0}
+.motion-enabled .program-row,.motion-enabled .knowledge-list>button{position:relative;isolation:isolate;overflow:hidden}
+.motion-enabled .program-row:before,.motion-enabled .knowledge-list>button:before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(230px circle at var(--spot-x,50%) var(--spot-y,50%),rgba(198,255,58,.08),transparent 75%);opacity:0;transition:opacity .25s;z-index:-1}
+.motion-enabled .program-row:hover:before,.motion-enabled .knowledge-list>button:hover:before{opacity:1}
+.motion-enabled .round-arrow{transition:transform .3s,background .3s,color .3s}.motion-enabled .program-row:hover .round-arrow{transform:rotate(-45deg)}
+.motion-enabled .action{translate:var(--magnet-x,0px) var(--magnet-y,0px);transition:translate .22s ease-out,box-shadow .25s,transform .2s}
+.steps{position:relative}.steps:before{content:"";position:absolute;right:0;left:0;top:-9px;height:1px;background:var(--acid);transform:scaleX(var(--flow-progress,0));transform-origin:right;opacity:.6}
+.motion-enabled .steps article>span{display:inline-block;transition:color .3s,text-shadow .3s}.motion-enabled .steps article.is-visible>span{text-shadow:0 0 15px rgba(198,255,58,.35)}
+.motion-enabled .finder-result.is-changing{animation:result-arrive .4s ease-out}
+@keyframes network-orbit{from{transform:rotate(var(--start-angle))}to{transform:rotate(calc(var(--start-angle) + 360deg))}}
+@keyframes core-breathe{0%,100%{transform:scale(1);box-shadow:inset 0 0 22px rgba(198,255,58,.08),0 0 40px rgba(198,255,58,.05)}50%{transform:scale(1.035);box-shadow:inset 0 0 30px rgba(198,255,58,.12),0 0 70px rgba(198,255,58,.12)}}
+@keyframes scroll-nudge{0%,65%,100%{translate:0 0}35%{translate:0 5px}}
+@keyframes knowledge-stream{to{transform:translateX(calc(-50% - 20px))}}
+@keyframes result-arrive{from{opacity:.45;translate:0 7px}to{opacity:1;translate:0 0}}
+html.motion-off .reveal{opacity:1;translate:none;transition:none}html.motion-off .orbit,html.motion-off .core,html.motion-off .art-label,html.motion-off .action{translate:none;animation:none}html.motion-off .ticker-track{animation:none}html.motion-off .steps:before{display:none}
+@media(max-width:960px){.ticker-track,.ticker-group{gap:24px}.ticker-track{padding-right:16px}.motion-toggle{min-height:44px;font-size:11px}.hero-bottom{gap:12px}.steps:before{display:none}@keyframes knowledge-stream{to{transform:translateX(calc(-50% - 12px))}}}
+@media(hover:none){.motion-enabled .action,.motion-enabled .core,.motion-enabled .art-label{translate:none}}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;translate:none!important;transition:none!important}.ticker-track,.orbit,.core{animation:none!important}.steps:before{display:none}.reading-progress{display:none}.motion-enabled .action,.motion-enabled .art-label{translate:none}}
+/* LTR (English): mirror the reading progress, flow line and ticker groups. */
+html[dir=ltr] .reading-progress{right:auto;left:0;transform-origin:left}
+html[dir=ltr] .steps:before{transform-origin:left}
+html[dir=ltr] .ticker-group{direction:ltr}
